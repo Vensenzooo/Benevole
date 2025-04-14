@@ -1,0 +1,53 @@
+@model IEnumerable<Benevole.Models.BenevoleModel>
+
+@{
+    ViewData["Title"] = "Liste";
+}
+
+<h1>Liste des Bénévoles</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Ajouter un Bénévole</a>
+</p>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Téléphone</th>
+                <th>Courriel</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var benevole in Model)
+            {
+                <tr>
+                    <td>@benevole.Nom</td>
+                    <td>@benevole.Prenom</td>
+                    <td>@benevole.Telephone</td>
+                    <td>@benevole.Courriel</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@benevole.Id" class="btn btn-info btn-sm">Détails</a>
+                        <a asp-action="Edit" asp-route-id="@benevole.Id" class="btn btn-warning btn-sm">Modifier</a>
+                        <a asp-action="Delete" asp-route-id="@benevole.Id" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucun benevole trouver.</p>
+}
